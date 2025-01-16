@@ -1,0 +1,178 @@
+{
+    "properties": {
+        "ad": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ad_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "campaign": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "campaign_id_external": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "cost": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "country": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "creative_set": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "creative_set_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "day": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "hour": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "clicks": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "impressions": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "platform": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "sales": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_0d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_1d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_2d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_3d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_7d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_usd_0d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_usd_1d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_usd_2d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_usd_3d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "chka_usd_7d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "roas_0d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "roas_1d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "roas_2d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "roas_3d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "roas_7d": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}

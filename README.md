@@ -4,39 +4,78 @@
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
-<!--
+## Features
+- Leverages the `report` endpoint from the [Applovin API]() in order to grab hourly summaries
+of ad performance by campaign, creative, country, and platform.
+- Configure the date range you want to grab data from using the `report_range_days` config variable.
+- Built with the Singer SDK for extensibility and Meltano compatibility.
 
-Developer TODO: Update the below as needed to correctly describe the install procedure. For instance, if you do not have a PyPI repo, or if you want users to directly install from your git repo, you can modify this step as appropriate.
+## Requirements
+
+- Python 3.9+
+
+- Applovin API key
+
+- Singer SDK
+
+- Meltano (optional, for pipeline orchestration)
 
 ## Installation
 
-Install from PyPI:
-
-```bash
-pipx install tap-applovin
-```
-
-Install from GitHub:
-
-```bash
-pipx install git+https://github.com/ORG_NAME/tap-applovin.git@main
-```
-
--->
+1. Clone the repository:
+  ```bash
+  git clone https://github.com/yourusername/tap-applovin.git
+  cd tap-applovin
+  ```
+2. Install the dependencies:
+  ```bash
+  poetry install
+  ```
+3. Activate the Poetry virtual environment:
+  ```bash
+  poetry shell
+  ```
 
 ## Configuration
 
+1. Create a config.json file with the following structure:
+  ```bash
+  {
+    "api_key": "YOUR_APPOVIN_API_KEY",
+    "report_range_days": 30
+  }
+  ```
+  - `api_key`: Your Applovin API key.
+
+  - `report_range_days`: Number of days of data to fetch (e.g., 30 for the last 30 days).
+
+2. Place config.json in the root directory or pass its path as an argument when running the tap.
+
+## Running the Tap
+
+1. Run the tap standalone:
+  ```bash
+  poetry run python -m tap_applovin --config config.json
+  ```
+2. Use with Meltano for pipeline orchestration:
+  - Add the tap to your Meltano project:
+  ```bash
+  meltano add extractor tap-applovin
+  ```
+  - Configure the tap in meltano.yml:
+  ```bash
+  extractors:
+    tap-applovin:
+      config:
+        api_key: YOUR_APPOVIN_API_KEY
+        report_range_days: 30
+  ```
+  - Run the tap via Meltano:
+  ```bash
+  meltano run tap-applovin target-your-target
+  ```
+
 ### Accepted Config Options
-
-<!--
-Developer TODO: Provide a list of config options accepted by the tap.
-
-This section can be created by copy-pasting the CLI output from:
-
-```
-tap-applovin --about --format=markdown
-```
--->
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -51,60 +90,7 @@ This Singer tap will automatically import any environment variables within the w
 `.env` if the `--config=ENV` is provided, such that config values will be considered if a matching
 environment variable is set either in the terminal context or in the `.env` file.
 
-### Source Authentication and Authorization
-
-<!--
-Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
--->
-
-## Usage
-
-You can easily run `tap-applovin` by itself or in a pipeline using [Meltano](https://meltano.com/).
-
-### Executing the Tap Directly
-
-```bash
-tap-applovin --version
-tap-applovin --help
-tap-applovin --config CONFIG --discover > ./catalog.json
-```
-
-## Developer Resources
-
-Follow these instructions to contribute to this project.
-
-### Initialize your Development Environment
-
-```bash
-pipx install poetry
-poetry install
-```
-
-### Create and Run Tests
-
-Create tests within the `tests` subfolder and
-  then run:
-
-```bash
-poetry run pytest
-```
-
-You can also test the `tap-applovin` CLI interface directly using `poetry run`:
-
-```bash
-poetry run tap-applovin --help
-```
-
 ### Testing with [Meltano](https://www.meltano.com)
-
-_**Note:** This tap will work in any Singer environment and does not require Meltano.
-Examples here are for convenience and to streamline end-to-end orchestration scenarios._
-
-<!--
-Developer TODO:
-Your project comes with a custom `meltano.yml` project file already created. Open the `meltano.yml` and follow any "TODO" items listed in
-the file.
--->
 
 Next, install Meltano (if you haven't already) and any needed plugins:
 
@@ -124,6 +110,27 @@ meltano invoke tap-applovin --version
 # OR run a test `elt` pipeline:
 meltano run tap-applovin target-jsonl
 ```
+
+## Customization
+
+The streams.py file provides the main logic for fetching and processing data. Key points
+of customization include:
+- **Columns:** Update the columns list to fetch additional fields.
+
+- **Date Range:** Modify the date_range method to adjust date partitioning.
+
+- **API Parameters:** Customize the get_url_params method to include additional query parameters.
+
+## Development
+
+1. Install development dependencies using Poetry:
+  ```bash
+  poetry install --with dev
+  ```
+2. Run tests:
+  ```bash
+  poery run pytest
+  ```
 
 ### SDK Dev Guide
 

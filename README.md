@@ -5,7 +5,8 @@
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
 ## Features
-- Leverages the `report` endpoint from the [Applovin API]() in order to grab hourly summaries
+- Leverages the `report` endpoint from the [Applovin API](https://developers.applovin.com/en/audience-plus/reporting-api)
+in order to grab hourly summaries
 of ad performance by campaign, creative, country, and platform.
 - Configure the date range you want to grab data from using the `report_range_days` config variable.
 - Built with the Singer SDK for extensibility and Meltano compatibility.

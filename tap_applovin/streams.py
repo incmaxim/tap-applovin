@@ -8,7 +8,7 @@ from importlib import resources
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from singer_sdk import typing as th, metrics  # JSON Schema typing helpers
+from singer_sdk import typing as th, metrics
 
 if t.TYPE_CHECKING:
     import requests
@@ -20,11 +20,11 @@ SCHEMAS_DIR = resources.files(__package__) / "schemas"
 
 
 class ReportsStream(ApplovinStream):
-    """Define custom stream."""
+    """Uses the Reporting API to get aggregated ad & campaign data in JSON format."""
 
     name = "reports"
     path = "report"
-    primary_keys: t.ClassVar[list[str]] = ["ad_id", "campaign_id_external", "day", "hour"]
+    primary_keys: t.ClassVar[list[str]] = ["ad_id", "campaign_id_external", "creative_set_id", "country", "platform", "day", "hour"]
     replication_key = None
     schema_filepath = SCHEMAS_DIR / "reports.json"  # noqa: ERA001
 
@@ -170,7 +170,7 @@ class ReportsStream(ApplovinStream):
         Yields:
             An item for every record in the response.
         """
-        start_date = datetime.now() - relativedelta(days=15)
+        start_date = datetime.now() - relativedelta(days=self.config.get("report_range_days"))
         end_date = datetime.now()
 
         for interval_start, interval_end in self.date_range(start_date, end_date):
@@ -180,35 +180,31 @@ class ReportsStream(ApplovinStream):
 
             paginator = self.get_new_paginator()
             decorated_request = self.request_decorator(self._request)
-            pages = 0
 
             with metrics.http_request_counter(self.name, self.path) as request_counter:
                 request_counter.context = context
-
-                while not paginator.finished:
-                    prepared_request = self.prepare_request(
-                        context,
-                        next_page_token=paginator.current_value,
-                        interval_start=interval_start,
-                        interval_end=interval_end
+                prepared_request = self.prepare_request(
+                    context,
+                    next_page_token=paginator.current_value,
+                    interval_start=interval_start,
+                    interval_end=interval_end
+                )
+                
+                resp = decorated_request(prepared_request, context)
+                request_counter.increment()
+                self.update_sync_costs(prepared_request, resp, context)
+                records = iter(self.parse_response(resp))
+                try:
+                    first_record = next(records)
+                except StopIteration:
+                    self.logger.info(
+                        "Pagination stopped after %d pages because no records were "
+                        "found in the last response",
+                        pages,
                     )
-                    
-                    resp = decorated_request(prepared_request, context)
-                    request_counter.increment()
-                    self.update_sync_costs(prepared_request, resp, context)
-                    records = iter(self.parse_response(resp))
-                    try:
-                        first_record = next(records)
-                    except StopIteration:
-                        self.logger.info(
-                            "Pagination stopped after %d pages because no records were "
-                            "found in the last response",
-                            pages,
-                        )
-                        break
-                    yield first_record
-                    yield from records
-                    pages += 1
+                    break
+                yield first_record
+                yield from records
 
                 paginator.advance(resp)
 

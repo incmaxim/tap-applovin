@@ -25,9 +25,16 @@ class Tapapplovin(Tap):
         th.Property(
             "report_range_days",
             th.IntegerType,
-            required=True,
+            required=False,
             title="Report Range Days",
             description="Defines the number of days in the past to include when generating reports. This value determines the starting point for data retrieval, relative to the current date.",
+        ),
+        th.Property(
+            "start_date",
+            th.StringType,
+            required=False,
+            title="Start Date",
+            description="The start date for data extraction in YYYY-MM-DD format. If specified, this overrides the report_range_days parameter.",
         ),
     ).to_dict()
 

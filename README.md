@@ -42,13 +42,13 @@ of ad performance by campaign, creative, country, and platform.
 1. Create a config.json file with the following structure:
   ```bash
   {
-    "api_key": "YOUR_APPOVIN_API_KEY",
-    "report_range_days": 30
+    "api_key": YOUR_APPOVIN_API_KEY,
+    "start_date": 2025-03-26 
   }
   ```
   - `api_key`: Your Applovin API key.
 
-  - `report_range_days`: Number of days of data to fetch (e.g., 30 for the last 30 days).
+  - `start_date`: format YYYY:MM:DD
 
 2. Place config.json in the root directory or pass its path as an argument when running the tap.
 
@@ -69,7 +69,7 @@ of ad performance by campaign, creative, country, and platform.
     tap-applovin:
       config:
         api_key: YOUR_APPOVIN_API_KEY
-        report_range_days: 30
+        start_date: 2025-03-26
   ```
   - Run the tap via Meltano:
   ```bash

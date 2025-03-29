@@ -1,12 +1,6 @@
 {
     "properties": {
-        "ad": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "ad_id": {
+        "day": {
             "type": [
                 "string",
                 "null"
@@ -36,6 +30,66 @@
                 "null"
             ]
         },
+        "platform": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "impressions": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "clicks": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ctr": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "conversions": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "conversion_rate": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "sales": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ad": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ad_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ad_type": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
         "creative_set": {
             "type": [
                 "string",
@@ -48,127 +102,25 @@
                 "null"
             ]
         },
-        "day": {
+        "campaign_type": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "campaign_roas_goal": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "device_type": {
             "type": [
                 "string",
                 "null"
             ]
         },
         "hour": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "clicks": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "impressions": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "platform": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "sales": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_0d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_1d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_2d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_3d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_7d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_usd_0d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_usd_1d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_usd_2d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_usd_3d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "chka_usd_7d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "roas_0d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "roas_1d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "roas_2d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "roas_3d": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "roas_7d": {
             "type": [
                 "string",
                 "null"

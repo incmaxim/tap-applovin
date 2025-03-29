@@ -10,6 +10,7 @@ from singer_sdk.authenticators import APIKeyAuthenticator
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.pagination import BaseAPIPaginator  # noqa: TC002
 from singer_sdk.streams import RESTStream
+from singer_sdk.exceptions import FatalAPIError
 
 if t.TYPE_CHECKING:
     import requests
@@ -53,3 +54,32 @@ class ApplovinStream(RESTStream):
             params["sort"] = "asc"
             params["order_by"] = self.replication_key
         return params
+
+    def validate_response(self, response):
+        """Validate HTTP response.
+
+        Args:
+            response: The HTTP response object.
+
+        Raises:
+            FatalAPIError: If the response contains a fatal error.
+            RetriableAPIError: If the response contains a retriable error.
+        """
+        if 400 <= response.status_code < 500:
+            # Print response body to see what's going wrong
+            error_msg = f"HTTP Error {response.status_code}: {response.text}"
+            self.logger.error(error_msg)
+            
+            # pokušaj da izvučeš JSON ako postoji
+            try:
+                error_data = response.json()
+                self.logger.error(f"API error details: {error_data}")
+            except:
+                pass
+            
+            # Podižemo grešku za sve 4xx odgovore
+            msg = (
+                f"{response.status_code} Client Error: "
+                f"{response.reason} for path: {response.url}"
+            )
+            raise FatalAPIError(msg)
